@@ -1,0 +1,6 @@
+1. Input field validation failed in 7 cases refer to execution results for details.
+2. Endpoint is creating user with additional parameter in request body. Although the data is not reflected in the system still this should be blocked.
+3. Response contain password data. It seems password is stored on DB without any encryption. JSON schema validations are also failed due to this.
+4. In case of few errors it is returning the API key as response body.
+5. 2 tests are failed in rating logic validation
+6. Inconsistency in error description for firstName Field validation. Description `__ERR_FNAME_INVALID__` is not confirming with other human readable error description.

@@ -1,7 +1,8 @@
 import request from 'supertest';
 import { expect } from 'chai';
 import { testConfig } from '../fixture/config.data';
-import { responseSchemaValidator } from '../fixture/json.schema';
+import { responseSchemaValidator } from '../fixture/success.json.schema';
+
 import { validRequestData } from '../fixture/valid.request';
 
 describe('GET /user endpoint response schema', () => {

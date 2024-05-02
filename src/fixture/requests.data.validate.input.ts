@@ -8,6 +8,10 @@ const requestData = {
     password: 'super secret password',
     rating: 10
 };
+export const requestDataWithAdditionalParameters = {
+    ..._.cloneDeep(requestData),
+    accountBalance: 10000
+};
 export const requestDataInvalidFName = [
     {
         title: 'Mr',
@@ -141,32 +145,33 @@ export const invalidEmailUserData = {
         rating: 10
     }
 };
-export const requestDataInvalidPassword = [{
-    title: 'Mr',
-    firstName: 'John',
-    lastName: 'Doe',
-    dateOfBirth: '1987-06-04',
-    email: 'somefake@email.com',
-    rating: 10
-},
-{
-    title: 'Mr',
-    firstName: 'John',
-    lastName: 'Doe',
-    dateOfBirth: '1987-06-04',
-    email: 'somefake@email.com',
-    password: '',
-    rating: 10
-}
-];
-export const invalidRatingUserData=[
+export const requestDataInvalidPassword = [
     {
         title: 'Mr',
         firstName: 'John',
         lastName: 'Doe',
         dateOfBirth: '1987-06-04',
         email: 'somefake@email.com',
-        password: 'super secret password',
+        rating: 10
+    },
+    {
+        title: 'Mr',
+        firstName: 'John',
+        lastName: 'Doe',
+        dateOfBirth: '1987-06-04',
+        email: 'somefake@email.com',
+        password: '',
+        rating: 10
+    }
+];
+export const invalidRatingUserData = [
+    {
+        title: 'Mr',
+        firstName: 'John',
+        lastName: 'Doe',
+        dateOfBirth: '1987-06-04',
+        email: 'somefake@email.com',
+        password: 'super secret password'
     },
     {
         title: 'Mr',
@@ -186,7 +191,7 @@ export const invalidRatingUserData=[
         password: 'super secret password',
         rating: 11
     }
-]
+];
 const requestDataNoTitle = {
     firstName: 'John',
     lastName: 'Doe',
@@ -196,13 +201,14 @@ const requestDataNoTitle = {
     rating: 10
 };
 
-export const invalidRequestTitle=[
+export const invalidRequestTitle = [
     requestDataNoTitle,
-    {title:'',..._.cloneDeep(requestDataNoTitle)},
-    {title:'Dr',..._.cloneDeep(requestDataNoTitle)},
-    {title:'mr',..._.cloneDeep(requestDataNoTitle)}
-]
-export const validRequestTitle=['Mr', 'Mrs', 'Miss', 'Ms', 'Mx'].map(title=>{
-    return {title: title,..._.cloneDeep(requestDataNoTitle)}
-})
-    
+    { title: '', ..._.cloneDeep(requestDataNoTitle) },
+    { title: 'Dr', ..._.cloneDeep(requestDataNoTitle) },
+    { title: 'mr', ..._.cloneDeep(requestDataNoTitle) }
+];
+export const validRequestTitle = ['Mr', 'Mrs', 'Miss', 'Ms', 'Mx'].map(
+    title => {
+        return { title: title, ..._.cloneDeep(requestDataNoTitle) };
+    }
+);

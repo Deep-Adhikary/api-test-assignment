@@ -40,7 +40,7 @@ describe('Validate User Creation End to End', () => {
         expect(response.status).equal(200);
 
         userData = response.body.data;
-        
+
         expect(userData).to.have.property('userId');
         expect(userData.title).equal(validRequestData.title);
         expect(userData.firstName).equal(validRequestData.firstName);
@@ -52,5 +52,24 @@ describe('Validate User Creation End to End', () => {
     });
     it('Should verify that password is not part of user fetch response', async () => {
         expect(userData).not.to.have.property('password');
+    });
+    it('Should throw error if invalid User ID is provided for fetching user details', async () => {
+        const response = await request(testConfig.baseUrl)
+            .get(`${testConfig.endPoint}/unknownID`)
+            .set(testConfig.authorizationHeader);
+        expect(response.status).equal(400);
+        expect(response.body).to.deep.equal({
+            errorType: 'Not Found',
+            errorMessage: 'User not found'
+        });
+    });
+    it('Validate that error does not contain api key if call get endpoint without user id', async () => {
+        const response = await request(testConfig.baseUrl)
+            .get(`${testConfig.endPoint}/`)
+            .set(testConfig.authorizationHeader);
+        expect(response.status).equal(403);
+        expect(response.body.message).not.contain(
+            testConfig.authorizationHeader.Authorization.replace('Bearer ', '')
+        );
     });
 });

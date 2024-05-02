@@ -21,9 +21,10 @@
 
 ### Error Handling:
 1. It’s specified what the error response looks like but there should be defined error categories and error messages for common scenarios(e.g., missing required fields, invalid formats). Detailing these scenarios will help in both development and testing.
+2. No error specifications are provided for 5XX series error. There should be custom `default` error handler.
 
 ### Get User Details:
-1. In response body what is the significance of "status" and "error" as in case of success message this will be always "success" & "null" respectively.
+1. In response body what is the significance of "status" and "error" as in case of success message this will be always "success" & "null" respectively. It can be removed and validation can be done with response body data and status code.
 
 
 ## Test Cases:

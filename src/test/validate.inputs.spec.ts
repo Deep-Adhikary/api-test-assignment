@@ -10,8 +10,10 @@ import {
     requestDataInvalidPassword,
     invalidRatingUserData,
     invalidRequestTitle,
-    validRequestTitle
+    validRequestTitle,
+    requestDataWithAdditionalParameters
 } from '../fixture/requests.data.validate.input';
+import { validateErrorResponse } from '../fixture/error.json.schema';
 describe('Validate Input Fields', () => {
     /**
      * Title
@@ -57,6 +59,8 @@ describe('Validate Input Fields', () => {
             //This is not a valid response as it is not using human redadable data not a functional failure but not conforming with acceptance criteria.
             // As expected error message is not provided cannot validate
             expect(response.body.errorMessage).equal('__ERR_FNAME_INVALID__');
+            const validationResult=validateErrorResponse(response.body)
+            expect(validationResult).to.be.true
         });
     });
     /**
@@ -74,6 +78,8 @@ describe('Validate Input Fields', () => {
             expect(response.body.errorMessage).equal(
                 'Validation error - last name must be between 2 and 255 characters'
             );
+            const validationResult=validateErrorResponse(response.body)
+            expect(validationResult).to.be.true
         });
     });
     /**
@@ -92,6 +98,8 @@ describe('Validate Input Fields', () => {
             expect(response.body.errorMessage).equal(
                 'Validation error - date of birth must be in YYYY-MM-DD format'
             );
+            const validationResult=validateErrorResponse(response.body)
+            expect(validationResult).to.be.true
         });
     });
     //Imparity with other first name and last name
@@ -118,6 +126,8 @@ describe('Validate Input Fields', () => {
             expect(response.body.errorMessage).equal(
                 'Validation error - must provide valid e-mail add' //incorrect msg
             );
+            const validationResult=validateErrorResponse(response.body)
+            expect(validationResult).to.be.true
         });
     });
     it('Should not create user with missing email', async () => {
@@ -163,6 +173,18 @@ describe('Validate Input Fields', () => {
             expect(response.body.errorMessage).equal(
                 'Validation error - rating is required' //incorrect msg
             );
+            const validationResult=validateErrorResponse(response.body)
+            expect(validationResult).to.be.true
         });
+    });
+    /**
+     * Request with additional parameter
+     */
+    it('Should not create user with additional request parameter', async () => {
+        const response = await request(testConfig.baseUrl)
+            .post(`${testConfig.endPoint}`)
+            .send(requestDataWithAdditionalParameters)
+            .set(testConfig.authorizationHeader);
+        expect(response.status).not.equal(200);
     });
 });
