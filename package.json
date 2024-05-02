@@ -3,8 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "test": "mocha --require ts-node/register --extensions ts --timeout 8000 './src/test/**/*.ts'",
-    "test:tsmocha": "ts-mocha './src/test/**/*.ts'"
+    "test": "mocha --require ts-node/register --extensions ts --timeout 8000 './src/test/**/*.ts'"
   },
   "keywords": [],
   "author": "",
@@ -24,7 +23,6 @@
     "ajv": "^8.13.0",
     "lodash": "^4.17.21",
     "mocha": "^10.1.0",
-    "supertest": "^7.0.0",
-    "ts-mocha": "^10.0.0"
+    "supertest": "^7.0.0"
   }
 }

@@ -13,18 +13,26 @@ describe('GET /user endpoint response schema', () => {
             .send(validRequestData)
             .set(testConfig.authorizationHeader);
         expect(response.status).equal(200);
-        userID = response.body.data.userId;
+        
         const validationResponse=responseSchemaValidator(response.body)
         console.debug(`Validation Errors:${JSON.stringify(responseSchemaValidator.errors)}`)
         expect(validationResponse).to.be.true;
         expect(responseSchemaValidator.errors).to.have.lengthOf(0);
     });
     it('Validate response JSON schema for GET /user/<userID> end point', async () => {
-        console.log(userID)
+        console.debug(validRequestData);
+        const responseUserCreation = await request(testConfig.baseUrl)
+            .post(`${testConfig.endPoint}`)
+            .send(validRequestData)
+            .set(testConfig.authorizationHeader);
+        expect(responseUserCreation.status).equal(200);
+
+        userID = responseUserCreation.body.data.userId;
+
         const response = await request(testConfig.baseUrl)
             .get(`${testConfig.endPoint}/${userID}`)
             .set(testConfig.authorizationHeader);
-        console.log(response.body)
+        console.debug(response.body)
   
         expect(response.status).equal(200);
         const validationResponse=responseSchemaValidator(response.body)
